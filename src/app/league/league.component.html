@@ -1,0 +1,27 @@
+
+<table class="table">
+    <thead>
+        <th ></th>
+        <th></th>
+        <th>Name</th>
+        <th>Games</th>
+        <th>W</th>
+        <th>L</th>
+        <th>D</th>
+        <th>Goal Difference</th>
+        <th>Points</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let standing of standingData; index as i">
+            <td>{{i+1}}</td>
+            <td><img class="image" src="{{standing.team.logo}}" [alt]="standing.team.name"/></td>
+            <td><a [routerLink]="['/matches',standing.team.id]">{{standing.team.name}}</a></td>
+            <td>{{standing.all.played}}</td>
+            <td>{{standing.all.win}}</td>
+            <td>{{standing.all.lose}}</td>
+            <td>{{standing.all.draw}}</td>
+            <td>{{standing.goalsDiff}}</td>
+            <td>{{standing.points}}</td>
+        </tr>
+    </tbody>
+</table>

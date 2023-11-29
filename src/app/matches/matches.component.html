@@ -1,0 +1,19 @@
+
+
+<div class="fixture">
+    
+    <table class="table">
+    <tbody>
+        <tr *ngFor="let fixture of fixtureData; index as i">
+            <td><img class="image" src="{{fixture.teams.home.logo}}" [alt]="fixture.teams.home.name"/></td>
+             <td>{{fixture.teams.home.name}}</td>
+            <td>{{fixture.goals.home}}</td>
+            <td>-</td>
+            <td>{{fixture.goals.away}}</td>
+            <td>{{fixture.teams.away.name}}</td>
+            <td><img class="image" src="{{fixture.teams.away.logo}}" [alt]="fixture.teams.away.name"/></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<button [routerLink]="['../../']" class="button">Back</button>
