@@ -2,16 +2,17 @@
   <div>
   <div class="title"><div>Football Updates</div></div>
 <section class="country-section">
-  <a
+  <button
     class="button"
     *ngFor="let league of leagues"
-    href=""
     [id]="league + 'Select'"
     (click)="onSelectCountry(league)"
   >
     {{ league | titlecase }}
-  </a>
+  </button>
+  
 </section>
-<app-league [selectedCountry]="selectedCountry"></app-league>
+<div class="title"><div>{{selectedCountry|titlecase}}</div></div>
+<app-league ></app-league>
 </div>
 </div>

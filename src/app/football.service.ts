@@ -1,4 +1,5 @@
 import { API_KEY, FOOTBALL_BASE_ENDPOINT } from "./constant";
+import { BehaviorSubject, Observable } from "rxjs";
 import {
   FIXTURE_API_MODEL,
   LEAGUE_API_MODEL,
@@ -7,13 +8,13 @@ import {
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class FootballService {
   headers = new HttpHeaders();
+  selectedCountry = new BehaviorSubject("england");
 
   constructor(private http: HttpClient) {
     this.headers.set("Content-Type", "application/json; charset=utf-8");
