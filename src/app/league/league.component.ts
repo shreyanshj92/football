@@ -21,7 +21,7 @@ export class LeagueComponent implements OnInit {
       (selectedCountry: string) => {
         const currentTopLeague = TOP_LEAGUES.filter(
           (league) => league.country?.toLowerCase() === selectedCountry
-        )[0].league;
+        )[0]?.league;
 
         this.footballService
           .getLeague(currentTopLeague, currentYear)
