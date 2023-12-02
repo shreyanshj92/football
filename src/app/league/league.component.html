@@ -1,4 +1,12 @@
+<div class="label">
+    <div class="selected-country"><label>Selected Country: </label><span class="country">{{selectedCountry|titlecase}}</span></div>
+    
 
+<div class="dropdown"><label>Select League:</label><select class="select" (change)="onSelectLeague($event)">
+    <option *ngFor="let leagueOption of leagueData" [value]="leagueOption.league.id" [selected]="leagueOption.league.name === currentTopLeague">{{leagueOption.league.name}}</option>
+</select>
+</div>
+</div>
 <table class="table">
     <thead>
         <th ></th>

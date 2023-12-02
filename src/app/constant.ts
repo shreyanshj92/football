@@ -1,6 +1,8 @@
-export const API_KEY = "244196ac21bc82d7c6f4342560dcd5e1";
+export const API_KEY = "fdaf843da602c3d6fd6a44c0704c1bfc";
 
 export const FOOTBALL_BASE_ENDPOINT = "https://v3.football.api-sports.io";
+
+export const COUNTRIES = ["england", "spain", "germany", "france", "italy"];
 
 export const TOP_LEAGUES = [
   {
@@ -24,3 +26,5 @@ export const TOP_LEAGUES = [
     league: "Serie A",
   },
 ];
+
+export const USE_DUMMY_DATA = false;

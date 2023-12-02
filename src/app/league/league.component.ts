@@ -1,8 +1,11 @@
+import * as leagueData from "../dummyData/leagueData.json";
+import * as standingData from "../dummyData/standingData.json";
+
 import { Component, OnInit } from "@angular/core";
+import { TOP_LEAGUES, USE_DUMMY_DATA } from "../constant";
 import { LEAGUE_MODEL, STANDING } from "../football.model";
 
 import { FootballService } from "../football.service";
-import { TOP_LEAGUES } from "../constant";
 
 @Component({
   selector: "app-league",
@@ -11,46 +14,72 @@ import { TOP_LEAGUES } from "../constant";
 })
 export class LeagueComponent implements OnInit {
   standingData: STANDING[] = [];
-  LeagueData: LEAGUE_MODEL[] = [];
+  leagueData: LEAGUE_MODEL[] = [];
+  currentYear = this.footballService.getCurrentYear();
+  currentTopLeague!: string;
+  selectedCountry!: string;
 
   constructor(private footballService: FootballService) {}
 
   ngOnInit(): void {
-    const currentYear = this.footballService.getCurrentYear();
     this.footballService.selectedCountry.subscribe(
       (selectedCountry: string) => {
-        const currentTopLeague = TOP_LEAGUES.filter(
+        this.selectedCountry = selectedCountry;
+        this.currentTopLeague = TOP_LEAGUES.filter(
           (league) => league.country?.toLowerCase() === selectedCountry
         )[0]?.league;
 
-        this.footballService
-          .getLeague(currentTopLeague, currentYear)
-          .subscribe((leagueData) => {
-            this.LeagueData = leagueData.response;
-            this.triggerStandingAPI(currentYear, selectedCountry);
-          });
-
-        // Using dummy data
-        // this.LeagueData = (leagueData as any).default.response;
-        // this.triggerStandingAPI(currentYear);
+        this.triggerLeagueAPI(selectedCountry);
       }
     );
   }
 
-  triggerStandingAPI(currentYear: number, selectedCountry: string): void {
-    const leagueId = this.LeagueData?.filter(
-      (league) => league?.country?.name?.toLowerCase() == selectedCountry
-    )[0]?.league?.id;
+  triggerLeagueAPI(selectedCountry: string): void {
+    !USE_DUMMY_DATA &&
+      this.footballService
+        .getLeague(selectedCountry, this.currentYear)
+        .subscribe({
+          next: (leagueData) => {
+            this.leagueData = leagueData.response;
+            if (this.currentTopLeague) {
+              const leagueId = this.leagueData?.find(
+                (league: LEAGUE_MODEL) =>
+                  league.league.name === this.currentTopLeague
+              )?.league?.id;
 
-    this.footballService
-      .getStandings(leagueId, currentYear)
-      .subscribe((standingData) => {
-        this.standingData = standingData.response[0]?.league?.standings[0];
+              this.triggerStandingAPI(this.currentYear, Number(leagueId));
+            }
+          },
+        });
+
+    // Using dummy data
+    if (USE_DUMMY_DATA) {
+      this.leagueData = (leagueData as any).default.response;
+      if (this.currentTopLeague) {
+        const leagueId = this.leagueData?.find(
+          (league: LEAGUE_MODEL) => league.league.name === this.currentTopLeague
+        )?.league?.id;
+        this.triggerStandingAPI(this.currentYear, Number(leagueId));
+      }
+    }
+  }
+
+  onSelectLeague(event: any): void {
+    this.triggerStandingAPI(this.currentYear, Number(event?.target?.value));
+  }
+
+  triggerStandingAPI(currentYear: number, leagueId: number): void {
+    !USE_DUMMY_DATA &&
+      this.footballService.getStandings(currentYear, leagueId).subscribe({
+        next: (standingData) => {
+          this.standingData = standingData.response[0]?.league?.standings[0];
+        },
       });
 
     // Using dummy data
-    // this.standingData = (
-    //   standingData as any
-    // ).default.response[0].league.standings[0];
+    USE_DUMMY_DATA &&
+      (this.standingData = (
+        standingData as any
+      ).default.response[0].league.standings[0]);
   }
 }

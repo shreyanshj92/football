@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
+import { COUNTRIES } from "../constant";
 import { FootballService } from "../football.service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-countries",
@@ -9,13 +9,10 @@ import { Router } from "@angular/router";
   styleUrls: ["./countries.component.css"],
 })
 export class CountriesComponent implements OnInit {
-  leagues: string[] = ["england", "spain", "germany", "france", "italy"];
+  countries: string[] = COUNTRIES;
   selectedCountry = "england";
 
-  constructor(
-    private router: Router,
-    private footballService: FootballService
-  ) {}
+  constructor(private footballService: FootballService) {}
 
   ngOnInit(): void {
     const isSelectedCountry = this.footballService.selectedCountry.getValue();

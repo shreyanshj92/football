@@ -1,6 +1,35 @@
+.label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+     background-color: rgba(255, 255, 255, 0.774);
+   
+     padding: 10px 20px;
+     border-radius: 5px;
+}
+
+.label .country {
+    color: gray;
+    padding: 4px 10px;
+}
+
+.label .dropdown, .label .selected-country{
+    display: inline-block;
+    width: 500px;
+}
+
+.label .select {
+    border: 1px solid gray;
+    border-radius: 4px;
+    background-color: antiquewhite;
+    color: gray;
+    padding: 4px 10px;
+    margin-left: 5px;
+}
+
 .table {
     background-color: rgba(255, 255, 255, 0.774);
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 .table thead th {

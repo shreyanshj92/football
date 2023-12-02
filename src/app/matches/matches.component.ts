@@ -1,6 +1,9 @@
+import * as fixtureData from "../dummyData/fixtureData.json";
+
 import { Component, OnInit } from "@angular/core";
 
 import { ActivatedRoute } from "@angular/router";
+import { USE_DUMMY_DATA } from "../constant";
 import { FIXTURE_MODEL } from "../football.model";
 import { FootballService } from "../football.service";
 
@@ -21,13 +24,15 @@ export class MatchesComponent implements OnInit {
     const currentYear = this.footballService.getCurrentYear();
 
     const teamId = this.route.snapshot.paramMap?.get("id");
-    this.footballService
-      .getFixtures(Number(teamId), currentYear)
-      .subscribe((fixtureData) => {
-        this.fixtureData = fixtureData.response?.splice(0, 10);
+    !USE_DUMMY_DATA &&
+      this.footballService.getFixtures(Number(teamId), currentYear).subscribe({
+        next: (fixtureData) => {
+          this.fixtureData = fixtureData.response?.splice(0, 10);
+        },
       });
 
     // Using dummy data
-    // this.fixtureData = (fixtureData as any).default.response;
+    USE_DUMMY_DATA &&
+      (this.fixtureData = (fixtureData as any).default.response?.splice(0, 10));
   }
 }

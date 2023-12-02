@@ -4,15 +4,15 @@
 <section class="country-section">
   <button
     class="button"
-    *ngFor="let league of leagues"
-    [id]="league + 'Select'"
-    (click)="onSelectCountry(league)"
+    *ngFor="let country of countries"
+    [id]="country + 'Select'"
+    (click)="onSelectCountry(country)"
   >
-    {{ league | titlecase }}
+    {{ country | titlecase }}
   </button>
   
 </section>
-<div class="title"><div>{{selectedCountry|titlecase}}</div></div>
-<app-league ></app-league>
+
+<app-league></app-league>
 </div>
 </div>
