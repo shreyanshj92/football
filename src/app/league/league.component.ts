@@ -35,6 +35,7 @@ export class LeagueComponent implements OnInit {
   }
 
   triggerLeagueAPI(selectedCountry: string): void {
+    // API call
     !USE_DUMMY_DATA &&
       this.footballService
         .getLeague(selectedCountry, this.currentYear)
@@ -69,6 +70,7 @@ export class LeagueComponent implements OnInit {
   }
 
   triggerStandingAPI(currentYear: number, leagueId: number): void {
+    // API call
     !USE_DUMMY_DATA &&
       this.footballService.getStandings(currentYear, leagueId).subscribe({
         next: (standingData) => {

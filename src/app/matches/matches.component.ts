@@ -24,6 +24,7 @@ export class MatchesComponent implements OnInit {
     const currentYear = this.footballService.getCurrentYear();
 
     const teamId = this.route.snapshot.paramMap?.get("id");
+    // API call
     !USE_DUMMY_DATA &&
       this.footballService.getFixtures(Number(teamId), currentYear).subscribe({
         next: (fixtureData) => {
