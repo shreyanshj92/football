@@ -27,7 +27,7 @@ export class LeagueComponent implements OnInit {
         this.selectedCountry = selectedCountry;
         this.currentTopLeague = TOP_LEAGUES.filter(
           (league) => league.country?.toLowerCase() === selectedCountry
-        )[0]?.league;
+        )[0].league;
 
         this.triggerLeagueAPI(selectedCountry);
       }
