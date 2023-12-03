@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/football/",
+    "public": "dist/football-host/",
     "ignore": [
       "firebase.json",
       "**/.*",
